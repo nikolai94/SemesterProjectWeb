@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var debug = require('debug')('ExpressAngularSeed');
 var app = require('../server/app');
-
+//a
 //This is to run end-to-end test on another port than the default development port
 
 var testPort = process.argv[2];
