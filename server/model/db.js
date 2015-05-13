@@ -75,16 +75,6 @@ var UsersSchema = new mongoose.Schema({
     }
 });
 
-// compile our model
-var Person = mongoose.model('Person', UsersSchema);
-
-// create a document
-var bad = new Person({
-     username : 'Peter', email: 'sodborg@hotmail.com',
-    password: 'peter123', address: 'tårnblæservej', city: 'Copenhagen', created: new Date()
-});
-
-console.log(bad.username + ' ' + bad.email + ' ' + bad.password + ' ' + bad.address + ' ' + bad.city);
 
 //execute før hver user.save()
 UsersSchema.pre('save', function(callback){
