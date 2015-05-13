@@ -1,4 +1,6 @@
 var mongoose = require( 'mongoose' );
+var Schema = mongoose.Schema;
+var bcrypt = require('bcrypt-nodejs');
 
 /*
 
@@ -21,7 +23,7 @@ if( typeof global.TEST_DATABASE != "undefined" ) {
   dbURI = global.TEST_DATABASE;
 }
 else{
-  dbURI = 'mongodb://localhost/testdb';
+  dbURI = 'mongodb://localhost/semprojdb';
 }
 
 mongoose.connect(dbURI);
@@ -47,14 +49,66 @@ process.on('SIGINT', function() {
 });
 
 
-/** User SCHEMA **/
-/** Replace this Schema with your own(s) **/
-var usersSchema = new mongoose.Schema({
-  userName : String,
-  email: {type: String, unique: true},
-  pw: String,
-  created: { type: Date, default: new Date() }
+var UsersSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    address: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    created: {
+        type: Date,
+        default: new Date()
+    }
 });
 
-mongoose.model( 'User', usersSchema,"testusers" );
+// compile our model
+var Person = mongoose.model('Person', UsersSchema);
+
+// create a document
+var bad = new Person({
+     username : 'Peter', email: 'sodborg@hotmail.com',
+    password: 'peter123', address: 'tårnblæservej', city: 'Copenhagen', created: new Date()
+});
+
+console.log(bad.username + ' ' + bad.email + ' ' + bad.password + ' ' + bad.address + ' ' + bad.city);
+
+//execute før hver user.save()
+UsersSchema.pre('save', function(callback){
+    var user = this;
+
+    if(!user.isModified('password')) return callback;
+
+    bcrypt.genSalt(5, function(err, salt){
+        if(err) return callback(err);
+
+        bcrypt.hash(user.password, salt, null, function(err, hash){
+            if(err) return callback(err);
+            user.password = hash;
+            callback();
+        });
+    });
+});
+
+
+var GruppeSchema = new mongoose.Schema({
+    gruppeNavn : {type: String, unique: true},
+    link: String
+});
+
+module.exports = mongoose.model('User', UsersSchema);
+module.exports = mongoose.model('Gruppe', GruppeSchema);
 
