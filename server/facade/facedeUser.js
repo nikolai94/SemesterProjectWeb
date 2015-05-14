@@ -67,3 +67,10 @@ function checkIfUserExists(user,password,callback){
     })
 }
 
+
+module.exports = {
+    createUser : createUser,
+    getUser : getUser,
+    checkIfUserExists : checkIfUserExists
+}
+
