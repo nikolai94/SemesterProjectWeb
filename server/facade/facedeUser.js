@@ -1,6 +1,6 @@
 require("./../model/db");
 var mongoose = require('mongoose');
-
+hash = require('./../routes/pass').hash;
 var User = mongoose.model('User');
 var brugerOpret = [
     {username: "bruger", email: "testLastName",password :"kode",address : "hejadresse",city:"hejby"}
@@ -45,6 +45,26 @@ function getUser(callback){
     });
 }
 
+
+function opretUser(username,password,email,callback){
+    hash(password, function (err, salt, hash) {
+        if (err) console.log("h"+err);
+        var user = new User({
+            username: username,
+            email: email,
+            salt: salt,
+            hash: hash
+        }).save(function (err, newUser) {
+                if (err){
+                    return callback(err);
+                }
+                return callback(null,newUser);
+            });
+
+    });
+
+}
+
 checkIfUserExists("bruger","$2a$05$0SQWyUSZMt7cSNx7l/P87uIXLrXdLyYhUQj/X2ZaZIEU6n2e1Wa3S", function(err,data)
 {
     if(err){
@@ -71,6 +91,7 @@ function checkIfUserExists(user,password,callback){
 module.exports = {
     createUser : createUser,
     getUser : getUser,
-    checkIfUserExists : checkIfUserExists
+    checkIfUserExists : checkIfUserExists,
+    opretUser : opretUser
 }
 
