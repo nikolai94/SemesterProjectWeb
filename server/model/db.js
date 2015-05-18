@@ -1,6 +1,6 @@
-var mongoose = require( 'mongoose' );
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt-nodejs');
+var mongoose = require( 'mongoose' ),
+    Schema = mongoose.Schema;
+
 
 /*
 
@@ -23,7 +23,7 @@ if( typeof global.TEST_DATABASE != "undefined" ) {
   dbURI = global.TEST_DATABASE;
 }
 else{
-  dbURI = 'mongodb://localhost/semprojdb';
+  dbURI = 'mongodb://localhost/semesterweb';
 }
 
 mongoose.connect(dbURI);
@@ -47,8 +47,13 @@ process.on('SIGINT', function() {
     process.exit(0);
   });
 });
-
-
+var UsersSchema = new mongoose.Schema({
+    username: String,
+    password: String,
+    salt: String,
+    hash: String
+});
+/*
 var UsersSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -74,26 +79,7 @@ var UsersSchema = new mongoose.Schema({
         default: new Date()
     }
 });
-
-
-//execute før hver user.save()
-UsersSchema.pre('save', function(callback){
-    var user = this;
-
-    if(!user.isModified('password')) return callback;
-
-    bcrypt.genSalt(5, function(err, salt){
-        if(err) return callback(err);
-
-        bcrypt.hash(user.password, salt, null, function(err, hash){
-            if(err) return callback(err);
-            user.password = hash;
-            callback();
-        });
-    });
-});
-
-
+*/
 var GruppeSchema = new mongoose.Schema({
     gruppeNavn : {type: String, unique: true},
     link: String
