@@ -7,6 +7,7 @@ Schema = mongoose.Schema;
 
 var router = express.Router();
 var jwt = require('jsonwebtoken');
+var facede = require("../facade/facedeUser")
 //var User = require('../model/db');
 //var session = require('express-session');
 
@@ -111,10 +112,22 @@ router.get("/signup", function (req, res) {
 });
 
 router.post("/signup", userExist, function (req, res) {
+//router.post("/signup", function (req, res) {
     var password = req.body.password;
     var username = req.body.username;
+    var email = req.body.email;
 
-    hash(password, function (err, salt, hash) {
+    facede.opretUser(username,password,email,function(err,data){
+        if(err){
+            console.log(err);
+            return res.end(""+err);
+        }
+        else{
+            console.log(data);
+            return res.end(""+data);
+        }
+    })
+    /*hash(password, function (err, salt, hash) {
         if (err) throw err;
         var user = new User({
             username: username,
@@ -132,7 +145,7 @@ router.post("/signup", userExist, function (req, res) {
                     }
                 });
             });
-    });
+    });*/
 });
 
 router.get("/login", function (req, res) {

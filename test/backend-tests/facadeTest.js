@@ -8,8 +8,8 @@ var User = mongoose.model("User");
 var should = require("should");
 
 var brugerOpret = [
-    {username: "bruger1", email: "email1",password :"kode1",address : "addresse1",city:"by1"},
-    {username: "bruger2", email: "email2",password :"kode2",address : "addresse2",city:"by2"}
+    {username: "bruger1", email: "email1tt",password :"kode1",address : "addresse1",city:"by1"},
+    {username: "bruger2", email: "email2tt",password :"kode2",address : "addresse2",city:"by2"}
 ];
 
 
@@ -34,8 +34,8 @@ describe ('FacadeUser Test', function(){
 
         facade.createUser({username: "bruger3", email: "email3",password :"kode3",address : "addresse3",city:"by3"},function(err,datta)
         {
-            console.log("err "+err)
-            console.log("datta" + datta);
+            //console.log("err "+err)
+           // console.log("datta" + datta);
             datta.address.should.equal("addresse3");
 
             facade.getUser(function(err,data)
@@ -62,7 +62,7 @@ describe ('FacadeUser Test', function(){
     {
         facade.checkIfUserExists("bruger1","kode1",function(err,data)
         {
-            console.log(data);
+           // console.log(data);
             data.should.equal(false);
             done();
         });

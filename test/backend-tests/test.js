@@ -29,7 +29,7 @@ describe("API get flights",function(){
         Gruppe.remove({}, function ()
         {
             var arrayNew = [{"gruppeNavn" : "Gruppe1", "link" : "http://smsproject-schultz.rhcloud.com/smsSemProject/"},
-               {"gruppeNavn" : "Gruppe2", "link" : "http://smsproject-schultz.rhcloud.com/smsSemProject/"}];
+               {"gruppeNavn" : "Gruppe2", "link" : "http://semesterproject-testnikolai1.rhcloud.com/SemesterProjectFligths/"}];
 
 
             Gruppe.create(arrayNew,function(err,data){
@@ -48,7 +48,7 @@ describe("API get flights",function(){
             facede.getGrupper("CPH","LON","1430784000000",function(err,result){
                 if(err){ console.log(err);}
               //  console.log(result[0] + " result")
-                result.length.should.equal(6);
+                result.length.should.equal(5);
                 done();
             });
         })

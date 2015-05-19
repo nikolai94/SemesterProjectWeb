@@ -23,7 +23,7 @@ if( typeof global.TEST_DATABASE != "undefined" ) {
   dbURI = global.TEST_DATABASE;
 }
 else{
-  dbURI = 'mongodb://localhost/semesterweb';
+  dbURI = 'mongodb://localhost/semprojdb';
 }
 
 mongoose.connect(dbURI);
@@ -47,13 +47,13 @@ process.on('SIGINT', function() {
     process.exit(0);
   });
 });
-var UsersSchema = new mongoose.Schema({
+/*var UsersSchema = new mongoose.Schema({
     username: String,
     password: String,
     salt: String,
     hash: String
 });
-/*
+*/
 var UsersSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -64,10 +64,8 @@ var UsersSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    password: {
-        type: String,
-        required: true
-    },
+    salt: String,
+    hash: String,
     address: {
         type: String
     },
@@ -79,7 +77,7 @@ var UsersSchema = new mongoose.Schema({
         default: new Date()
     }
 });
-*/
+
 var GruppeSchema = new mongoose.Schema({
     gruppeNavn : {type: String, unique: true},
     link: String
