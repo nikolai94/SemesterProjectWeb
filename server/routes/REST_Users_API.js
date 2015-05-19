@@ -31,8 +31,7 @@ router.get('/:fra/:til/:dato', function(req, res) {
     res.header("Content-type","application/json");
 
     var fra = req.params.fra;
-    //var til = req.params.til;
-    var til = "test";
+    var til = req.params.til;
     var date = req.params.dato;
 
     var newDate = date.split("-");
@@ -49,6 +48,32 @@ router.get('/:fra/:til/:dato', function(req, res) {
        }
 
        res.end(JSON.stringify(result));
+
+    });
+
+});
+
+
+router.get('/:fra/:dato', function(req, res) {
+    res.header("Content-type","application/json");
+
+    var fra = req.params.fra;
+    var date = req.params.dato;
+
+    var newDate = date.split("-");
+    var dateUtc =  new Date(newDate[1]+"-"+newDate[0]+"-"+newDate[2]);
+    dateUtc = dateUtc.valueOf();
+
+    console.log(dateUtc);
+
+    facade.getGrupperFromAirport(fra,dateUtc,function(err,result){
+        if(err){
+            res.status(err.status || 400);
+            res.end(JSON.stringify({error: err.toString()}));
+            return;
+        }
+
+        res.end(JSON.stringify(result));
 
     });
 

@@ -1,11 +1,35 @@
-<div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
-<p>This is the partial for view 2.</p>
-<p style="color: darkgreen">Partial (view2.html) is located in the folder for this view (app/view2)</p>
-<br/>
-<p style="color: #105cb6">
+<div class="span2 well" style="min-height: 50em;">
+    <div class="alert alert-danger" role="alert" ng-show="error">{{error}}</div>
 
-  {{info.msg}}
-</p>
+    <h1>Find flights</h1>
+
+    <input placeholder="From airport:" name="from" ng-model="findFlights.from">
+    <br/><br/>
+    <input placeholder="To airport:" name="to" ng-model="findFlights.to">
+    <br/><br/>
+    <input placeholder="Dato" name="date" ng-model="findFlights.date" >
+    <br/><br/>
+    <button name="See airplans" ng-click="findFlights()" value="">See airplans</button>
+
+   <table class="table">
+       <thead>
+        <tr>
+            <th>Airline</th><th>Depature</th><th>Destination</th><th>TakeOffDate</th><th>LandingDate</th><th>Price</th> <th>Booking</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr ng-repeat="row in data">
+            <td>{{row.airline}}</td>
+            <td>{{row.depature}}</td>
+            <td>{{row.destination}}</td>
+            <td>{{row.takeOffDate}}</td>
+            <td>{{row.landingDate}}</td>
+            <td>{{row.price}}</td>
+            <td><a href="booking/{{row.airline}}/{{row.flightId}}"> Booking</a></td>
+        </tr>
+       </tbody>
+    </table>
+</div>
 
 
 
