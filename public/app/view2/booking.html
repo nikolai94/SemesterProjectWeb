@@ -30,11 +30,13 @@
 </form>
 
 </div>
-<p>fligthObject.airline">tis {{$scope.hej}}</p>
     <div id="table" style="float:left; width: 79%; margin-left:1%" class="span2 well" >
+        <h3 style="margin-left:1%;">{{fligthObject.airline}} </h3>
+        <p style="margin-left:1%;">Depature: {{fligthObject.depature}} || Destination: {{fligthObject.destination}}</p>
+        <b style="margin-left:1%;">Number of passengers: {{personsLength}} || Available seats:({{fligthObject.availableSeats}})</b>
 
-<table class="table">
-    <b style="margin-left:1%">Number of passengers: {{personsLength}}</b>
+        <table class="table">
+
     <thead>
     <tr>
         <th>First name</th> <th>Last name</th><th>City</th><th>Country</th><th>Street</th><th></th><th></th>

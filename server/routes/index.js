@@ -147,7 +147,13 @@ router.post("/authenticate", function (req, res) {
             req.session.regenerate(function () {
 
                 req.session.user = user;
-                var token = jwt.sign(user, require("../security/secrets").secretTokenUser, { expiresInMinutes: 60*5 });
+                var profile = {
+                    username: user.username,
+                    role: "user",
+                    id: 111
+                };
+                console.log(profile);
+                var token = jwt.sign(profile, require("../security/secrets").secretTokenUser, { expiresInMinutes: 60*5 });
                 res.json({ token: token });
                 return;
             });

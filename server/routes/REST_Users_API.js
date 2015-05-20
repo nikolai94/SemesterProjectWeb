@@ -28,7 +28,7 @@ router.post('/addUser', function(req, res) {
 router.post('/reserve', function(req,res)
 {
     var order = req.body;
-
+    console.log();
     return res.end(order+ "");
 })
 

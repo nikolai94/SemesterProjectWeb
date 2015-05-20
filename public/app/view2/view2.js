@@ -1,5 +1,6 @@
 'use strict';
 var persons = [];
+var fligthObject = {};
 var app = angular.module('myAppRename.view2', ['ngRoute']);
 
   app.config(['$routeProvider', function ($routeProvider) {
@@ -19,7 +20,7 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
       $scope.personsLength = $scope.persons.length;
       $scope.nextId = 1;
       $scope.noFligthFound = "";
-      $scope.fligthObject = {};
+      $scope.fligthObject = fligthObject;
       $scope.data = [];
       $scope.findFlights = function (){
           getFlightsFactory.getData($scope.findFlights.from,$scope.findFlights.to,$scope.findFlights.date).success(function(data){
@@ -39,13 +40,8 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
 
       $scope.objectFligth = function(row)
       {
-      //    $scope.fligthObject = {airline: row.airline};
-          if(row != undefined) {
-              $scope.fligthObject = row;
-              $scope.hej = "hej";
-          }
-        //  $location.path("booking/"+row.airline+/row.flightId+"/her");
-
+          fligthObject = row;
+        $scope.fligthObject = fligthObject;
       }
 
       $scope.addPerson = function()
