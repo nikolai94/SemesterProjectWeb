@@ -25,6 +25,13 @@ router.post('/addUser', function(req, res) {
     });
 });
 
+router.post('/reserve', function(req,res)
+{
+    var order = req.body;
+
+    return res.end(order+ "");
+})
+
 
 
 router.get('/:fra/:til/:dato', function(req, res) {
