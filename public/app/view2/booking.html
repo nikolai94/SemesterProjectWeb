@@ -1,0 +1,57 @@
+<div id="wrapper" style="width: 100%; margin-top:1%">
+<div class="span2 well" style="width: 20%; float:left;">
+<form>
+    <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="text" class="form-control" id="FirstName" placeholder="Enter First Name" ng-model="person.firstname">
+    </div>
+
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" id="LastName" placeholder="Enter Last Name" ng-model="person.lastname">
+    </div>
+
+    <div class="form-group">
+    <label for="City">City</label>
+    <input type="text" class="form-control" id="City" placeholder="Enter City" ng-model="person.city">
+</div>
+
+    <div class="form-group">
+        <label for="Country">Country</label>
+        <input type="text" class="form-control" id="Country" placeholder="Enter Country" ng-model="person.country">
+    </div>
+
+    <div class="form-group">
+        <label for="street">Street</label>
+        <input type="text" class="form-control" id="street" placeholder="Enter street" ng-model="person.street">
+    </div>
+    <input type="hidden" ng-model="person.id">
+    <button type="submit" class="btn btn-default" ng-click="addPerson()">Add passenger</button>
+</form>
+
+</div>
+<p>fligthObject.airline">tis {{$scope.hej}}</p>
+    <div id="table" style="float:left; width: 79%; margin-left:1%" class="span2 well" >
+
+<table class="table">
+    <b style="margin-left:1%">Number of passengers: {{personsLength}}</b>
+    <thead>
+    <tr>
+        <th>First name</th> <th>Last name</th><th>City</th><th>Country</th><th>Street</th><th></th><th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="person in persons">
+        <td>{{person.firstname}}</td>
+        <td>{{person.lastname}}</td>
+        <td>{{person.city}}</td>
+        <td>{{person.country}}</td>
+        <td>{{person.street}}</td>
+        <td><a href="" ng-click="editPerson(person.id)">Edit</a></td>
+        <td><a href="" ng-click="removePerson(person.id)">Remove</a></td>
+    </tr>
+    </tbody>
+</table>
+        <button type="submit" class="btn btn-default" style="margin-left:40%;">Reserve</button>
+    </div>
+</div>

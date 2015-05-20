@@ -46,14 +46,15 @@ function getUser(callback){
 }
 
 
-function opretUser(username,password,email,callback){
+function opretUser(username,password,email,tickes,callback){
     hash(password, function (err, salt, hash) {
         if (err) console.log("h"+err);
         var user = new User({
             username: username,
             email: email,
             salt: salt,
-            hash: hash
+            hash: hash,
+            tickes:tickes
         }).save(function (err, newUser) {
                 if (err){
                     return callback(err);
