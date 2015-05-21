@@ -3,6 +3,7 @@ var persons = [];
 var fligthObject = {};
 var app = angular.module('myAppRename.view2', ['ngRoute']);
 
+
   app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
         .when('/view2', {
@@ -14,7 +15,7 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
         controller: 'View2Ctrl'
     });
   }])
-  app.controller('View2Ctrl', ['$scope', '$http','$location','getFlightsFactory', function ($scope, $http,$location,getFlightsFactory) {
+  app.controller('View2Ctrl', ['$scope', '$http','$location','getFlightsFactory','orderDato', function ($scope, $http,$location,getFlightsFactory,orderDato) {
 
       $scope.persons = persons;
       $scope.personsLength = $scope.persons.length;
@@ -31,12 +32,20 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
               else
               {
                   $scope.noFligthFound = "";
+                  for(var i = 0; i < data.length; i++){
+                      data[i].takeOffDate = $scope.findFlights.date;
+
+                     data[i].landingDate = orderDato.getData(data[i].landingDate);
+
+
+                  }
                   $scope.data = data;
               }
 
 
           })
       }
+
 
       $scope.objectFligth = function(row)
       {
@@ -95,20 +104,5 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
 
   }]);
 
-app.factory('getFlightsFactory', ['$http', function($http){
-   var url = "userApi/";
-    var dataFactory = {};
-    dataFactory.getData = function(from,to,date){
-        if(to.length == 0)
-        {
-            return $http.get(url+from+"/"+date);
-        }
-        else
-        {
-           return $http.get(url+from+"/"+to+"/"+date);
-        }
-    }
 
-    return dataFactory;
 
-}]);

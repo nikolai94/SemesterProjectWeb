@@ -15,13 +15,14 @@ var expressJwt = require('express-jwt');
 var app = express();
 
 //We can skip Authentication from our Unit Tests, but NEVER in production
+/*
 if (process.env.NODE_ENV || typeof global.SKIP_AUTHENTICATION == "undefined") {
 // Protected Routes (via /api routes with JWT)
   app.use('/userApi', expressJwt({secret: require("./security/secrets").secretTokenUser}));
   app.use('/adminApi', expressJwt({secret: require("./security/secrets").secretTokenAdmin}));
 }
 
-
+*/
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
