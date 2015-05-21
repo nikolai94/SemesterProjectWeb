@@ -1,6 +1,8 @@
 'use strict';
 var persons = [];
+var fligthObject = {};
 var app = angular.module('myAppRename.view2', ['ngRoute']);
+
 
   app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider
@@ -13,13 +15,13 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
         controller: 'View2Ctrl'
     });
   }])
-  app.controller('View2Ctrl', ['$scope', '$http','$location','getFlightsFactory', function ($scope, $http,$location,getFlightsFactory) {
+  app.controller('View2Ctrl', ['$scope', '$http','$location','getFlightsFactory','orderDato', function ($scope, $http,$location,getFlightsFactory,orderDato) {
 
       $scope.persons = persons;
       $scope.personsLength = $scope.persons.length;
       $scope.nextId = 1;
       $scope.noFligthFound = "";
-      $scope.fligthObject = {};
+      $scope.fligthObject = fligthObject;
       $scope.data = [];
       $scope.findFlights = function (){
           getFlightsFactory.getData($scope.findFlights.from,$scope.findFlights.to,$scope.findFlights.date).success(function(data){
@@ -30,6 +32,13 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
               else
               {
                   $scope.noFligthFound = "";
+                  for(var i = 0; i < data.length; i++){
+                      data[i].takeOffDate = $scope.findFlights.date;
+
+                     data[i].landingDate = orderDato.getData(data[i].landingDate);
+
+
+                  }
                   $scope.data = data;
               }
 
@@ -37,15 +46,11 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
           })
       }
 
+
       $scope.objectFligth = function(row)
       {
-      //    $scope.fligthObject = {airline: row.airline};
-          if(row != undefined) {
-              $scope.fligthObject = row;
-              $scope.hej = "hej";
-          }
-        //  $location.path("booking/"+row.airline+/row.flightId+"/her");
-
+          fligthObject = row;
+        $scope.fligthObject = fligthObject;
       }
 
       $scope.addPerson = function()
@@ -99,20 +104,5 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
 
   }]);
 
-app.factory('getFlightsFactory', ['$http', function($http){
-   var url = "userApi/";
-    var dataFactory = {};
-    dataFactory.getData = function(from,to,date){
-        if(to.length == 0)
-        {
-            return $http.get(url+from+"/"+date);
-        }
-        else
-        {
-           return $http.get(url+from+"/"+to+"/"+date);
-        }
-    }
 
-    return dataFactory;
 
-}]);

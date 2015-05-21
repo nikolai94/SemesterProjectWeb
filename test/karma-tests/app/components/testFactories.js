@@ -2,19 +2,14 @@ describe('myAppRename.factories', function () {
 
   beforeEach(module('myAppRename.factories'));
 
-  describe('InfoFactory', function () {
-    var infoFactory;
-    beforeEach(inject(function (_InfoFactory_) {
-      infoFactory = _InfoFactory_;
+  describe('XXXFactory', function () {
+    var orderDato;
+    beforeEach(inject(function (_orderDato_) {
+      orderDato = _orderDato_;
     }));
 
-    it('Should be Hello World from a Factory', function () {
-      expect(infoFactory.getInfo()).toBe("Hello World from a Factory");
+    it('should edit the date', function () {
+      expect(orderDato.getData(1420434000000)).toBe("05-01-2015");
     });
-  });
-
-
-  describe('XXXFactory', function () {
-
   });
 });
