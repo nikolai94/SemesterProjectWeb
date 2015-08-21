@@ -36,10 +36,9 @@ var app = angular.module('myAppRename.view2', ['ngRoute']);
                       data[i].takeOffDate = $scope.findFlights.date;
 
                      data[i].landingDate = orderDato.getData(data[i].landingDate);
-
-
                   }
                   $scope.data = data;
+
               }
 
 
